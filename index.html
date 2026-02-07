@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keshav Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables (Cinematic Palette) --- */
+        :root {
+            --primary-color: #ffd700;       /* Gold Glow */
+            --primary-glow: rgba(255, 215, 0, 0.6);
+            --dark-bg: #0a0a12;             /* Deep Space Black */
+            --glass-bg: rgba(255, 255, 255, 0.05); /* Frosted Glass */
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-light: #b0b0d0;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* --- Global Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at top left, #1a1a2e, #000000);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background Glow Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(120, 104, 209, 0.15), transparent 70%);
+            animation: pulseGlow 8s infinite alternate;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- Header (Glass Effect) --- */
+        header {
+            background: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-main);
+            text-shadow: 0 0 10px var(--primary-glow);
+            letter-spacing: 2px;
+        }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { 
+            font-weight: 500; 
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--primary-color); text-shadow: 0 0 8px var(--primary-glow); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(120, 104, 209, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: floatUp 1.5s ease-out;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 20px var(--glass-border);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: 0 0 10px var(--primary-glow) inset, 0 0 20px var(--primary-glow);
+            text-shadow: 0 0 5px var(--primary-color);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: #000;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 40px var(--primary-glow);
+        }
+
+        /* --- Section Styling --- */
+        section { padding: 6rem 2rem; width: 100%; position: relative; }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: white;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            position: relative;
+            display: inline-block;
+            /* Global centering for section titles */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px; height: 3px;
+            background: var(--primary-color);
+            margin: 10px auto 0;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* --- About Section --- */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .about-img img {
+            border-radius: 20px;
+            box-shadow: -20px 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            transform: rotateY(15deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* --- Skills Grid --- */
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+        .skill-tag {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: white;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+        .skill-tag:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: scale(1.1);
+        }
+
+        /* --- Projects Section --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            perspective: 1000px;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 15px var(--primary-glow);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--glass-border);
+            transition: transform 0.5s;
+        }
+        .project-card:hover img { transform: scale(1.1); }
+
+        .project-info { padding: 1.5rem; }
+        .project-info h3 { margin-bottom: 0.5rem; color: white; font-size: 1.4rem; }
+        .project-info p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem; }
+        
+        .project-link {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .project-link:hover { text-shadow: 0 0 8px var(--primary-color); }
+
+        /* --- Contact Section --- */
+        .contact {
+            text-align: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        /* FIXED: This forces the "Get In Touch" title to sit in the center of the box */
+        .contact .section-title {
+            left: auto;
+            transform: none;
+        }
+
+        .contact p { margin-bottom: 2rem; color: var(--text-light); }
+
+        /* --- Footer --- */
+        footer {
+            background: #050508;
+            color: var(--text-light);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-container {
+            width: 100%;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .footer-col { flex: 1; min-width: 250px; }
+        .footer-col h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .footer-links a {
+            display: flex; align-items: center; color: var(--text-light);
+            margin-bottom: 1rem; transition: var(--transition); opacity: 0.8;
+        }
+        .footer-links a:hover {
+            color: white;
+            opacity: 1;
+            transform: translateX(10px);
+            text-shadow: 0 0 8px white;
+        }
+        .footer-links i { margin-right: 15px; color: var(--primary-color); }
+
+        .social-icons { display: flex; gap: 1.5rem; margin-top: 1.5rem; }
+        .social-icons a {
+            display: flex; align-items: center; justify-content: center;
+            width: 50px; height: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            transition: var(--transition);
+            color: white;
+            font-size: 1.2rem;
+        }
+        .social-icons a:hover {
+            background: var(--primary-color);
+            color: black;
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        .footer-bottom {
+            text-align: center; margin-top: 4rem; padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem; opacity: 0.6;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; letter-spacing: 1px; }
+            .about-container { grid-template-columns: 1fr; perspective: none; }
+            .about-img img { transform: none; margin-bottom: 2rem; }
+            
+            nav { flex-direction: column; padding-bottom: 1rem; background: rgba(0,0,0,0.95); }
+            .nav-links { 
+                display: flex; flex-wrap: wrap; justify-content: center; 
+                gap: 1.5rem; margin-top: 1rem; 
+            }
+            .footer-container { flex-direction: column; }
+            section { padding: 4rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Personal Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm Keshav.</h1>
+            <p>Passionate frontend developer specializing in building responsive, scalable applications using React, JavaScript, and modern CSS frameworks.</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="about-img">
+                <img src="assets/images/keshav.jpeg" alt="Profile Picture">
+            </div>
+            <div class="about-text">
+                <h3>Front-End Developer</h3>
+                <p>Hi, I'm Keshav, a Front-End Developer. I specialize in building clean, elegant web applications using React and modern CSS. My passion lies in creating software that improves lives, whether I'm working with small businesses or large enterprises. I write efficient code and am always eager to adopt new technologies to build better digital experiences.</p>
+                
+                <div class="skills-grid">
+                    <span class="skill-tag">HTML5</span>
+                    <span class="skill-tag">CSS3</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Git</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <img src="assets/images/ecommerce12.jepg" alt="Project 1">
+                <div class="project-info">
+                    <h3>E-Commerce Dashboard</h3>
+                    <p>A responsive dashboard built with React and Tailwind CSS featuring data visualization and dark mode.</p>
+                    <a href="#" class="project-link">View Project &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="assets/images/Complaint-mgt.jepg" alt="Project 2">
+                <div class="project-info">
+                    <h3>Complaint Management System</h3>
+                    <p>Developed a web-based application to automate the process of managing customer complaints efficiently.</p>
+                    <a href="#" class="project-link">View Project &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="assets/images/Hospital-Management-System-development.jepg" alt="Project 3">
+                <div class="project-info">
+                    <h3>Hospital Management System</h3>
+                    <p>A secure and efficient Hospital Management System designed to streamline patient care, appointments, and medical records. Built for modern healthcare facilities.</p>
+                    <a href="#" class="project-link">View Project &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>I'm currently open to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+            <a href="mailto:keshavpatagar86@gmail.com" target="_blank" class="btn">Say Hello</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            
+            <div class="footer-col">
+                <div class="logo">Keshav</div>
+                <p style="color: var(--text-light); max-width: 300px;">
+                    Thank you for visiting my personal portfolio website. Connect with me over socials.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="#about"><i class="fas fa-arrow-right"></i> About</a>
+                    <a href="#projects"><i class="fas fa-arrow-right"></i> Projects</a>
+                    <a href="#contact"><i class="fas fa-arrow-right"></i> Contact</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <div class="footer-links">
+                    
+                    <a href="mailto:keshavpatagar86@gmail.com">
+                        <i class="fas fa-envelope"></i> keshavpatagar86@gmail.com
+                    </a>
+
+                    <a href="tel:+916362935262">
+                        <i class="fas fa-phone"></i> +91 6362935262
+                    </a>
+
+                    <div class="social-icons">
+                        <a href="https://instagram.com/keshav._patgar_.17" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/keshav-patgar" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/KeshavPatgar" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 Keshav. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
